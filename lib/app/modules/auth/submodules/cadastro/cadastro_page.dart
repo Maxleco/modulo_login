@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:modulo_login/app/modules/auth/utils/Colors.dart';
 import 'cadastro_controller.dart';
-import '../../../auth/utils/Colors.dart';
+import 'pages/cadastro_sucesso/cadastro_sucesso_page.dart';
+import 'pages/dados_conta/dados_conta_page.dart';
+import 'pages/dados_endereco/dados_endereco_page.dart';
+import 'pages/dados_pessoais/dados_pessoais_page.dart';
 
 class CadastroPage extends StatefulWidget {
   final String title;
@@ -16,11 +21,7 @@ class _CadastroPageState
     extends ModularState<CadastroPage, CadastroController> {
   //use 'controller' variable to access controller
 
-  //Visible or not Visible the Password
-  bool obscureText = true;
-  bool obscureTextConf = true;
-
-  Widget get _backGround {
+  Widget get _background {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -34,42 +35,55 @@ class _CadastroPageState
     );
   }
 
+  List<Widget> _listPages = [
+    DadosPessoaisPage(),
+    DadosEnderecoPage(),
+    DadosContaPage(),
+    CadastroSucessoPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              _backGround,
-              Container(
-                height: double.infinity,
-                alignment: AlignmentDirectional.center,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.075,
-                    // vertical: size.height * 0.10,
-                  ),
-                  child: Form(
-                    // key: controller.formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        
-                      ],
+      body: Stack(
+        children: <Widget>[
+          _background,
+          AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light,
+            child: Container(
+              height: size.height,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: size.height * 0.25,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Cadastro",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "OpenSans",
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
+                  Container(
+                    height: size.height * 0.75,
+                    child: PageView.builder(
+                      controller: controller.pageController,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: _listPages.length,
+                      itemBuilder: (context, index){
+                        return _listPages[index];
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -5,18 +5,20 @@ class CustomOutlineButtonAuth extends StatelessWidget {
   final String text;
   final double elevation;
   final Color corBorder;
+  final double width;
 
   const CustomOutlineButtonAuth({
     @required this.onPressed,
     @required this.text,
     this.elevation = 5.0,
     this.corBorder = Colors.white,
+    this.width = double.infinity,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: this.width,
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(30.0),

@@ -17,7 +17,7 @@ class CustomTextFieldAuth extends StatelessWidget {
   final String Function(String) validator;
 
   const CustomTextFieldAuth({
-    @required this.controller,
+    this.controller,
     @required this.icon,
     @required this.label,
     this.hint,

@@ -12,12 +12,14 @@ class CadastroSucessoPage extends StatefulWidget {
 class _CadastroSucessoPageState extends State<CadastroSucessoPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[],
+    return Center(
+      child: Text(
+        "Cadastro realizado com sucesso!",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
