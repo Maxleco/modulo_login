@@ -1,0 +1,48 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'login_controller.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+
+mixin _$LoginController on _LoginControllerBase, Store {
+  final _$checkLembraDeMimAtom =
+      Atom(name: '_LoginControllerBase.checkLembraDeMim');
+
+  @override
+  bool get checkLembraDeMim {
+    _$checkLembraDeMimAtom.reportRead();
+    return super.checkLembraDeMim;
+  }
+
+  @override
+  set checkLembraDeMim(bool value) {
+    _$checkLembraDeMimAtom.reportWrite(value, super.checkLembraDeMim, () {
+      super.checkLembraDeMim = value;
+    });
+  }
+
+  final _$_LoginControllerBaseActionController =
+      ActionController(name: '_LoginControllerBase');
+
+  @override
+  dynamic setLembraDeMim(bool value) {
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
+        name: '_LoginControllerBase.setLembraDeMim');
+    try {
+      return super.setLembraDeMim(value);
+    } finally {
+      _$_LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String toString() {
+    return '''
+checkLembraDeMim: ${checkLembraDeMim}
+    ''';
+  }
+}

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'home_controller.dart';
+import 'cadastro_controller.dart';
 
-class HomePage extends StatefulWidget {
+class CadastroPage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = "Home"}) : super(key: key);
+  const CadastroPage({Key key, this.title = "Cadastro"}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _CadastroPageState createState() => _CadastroPageState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeController> {
+class _CadastroPageState
+    extends ModularState<CadastroPage, CadastroController> {
   //use 'controller' variable to access controller
 
   @override
