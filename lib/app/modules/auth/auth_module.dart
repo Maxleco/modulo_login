@@ -19,8 +19,8 @@ class AuthModule extends ChildModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter(Modular.initialRoute, child: (_, args) => AuthPage()),
-        ModularRouter("/login", child: (_, args) => LoginPage(), transition: TransitionType.fadeIn),
-        ModularRouter("/cadastro", module: CadastroModule(), transition: TransitionType.leftToRight),
+        ModularRouter("/login", child: (_, args) => LoginPage(), transition: TransitionType.rightToLeft),        
+        ModularRouter("/cadastro", module: CadastroModule(), transition: TransitionType.rightToLeft),
       ];
 
   static Inject get to => Inject<AuthModule>.of();

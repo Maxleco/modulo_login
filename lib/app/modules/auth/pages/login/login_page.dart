@@ -162,7 +162,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                     ),
                                   )
                                 : GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Modular.link.pushReplacementNamed("/cadastro");
+                                    },
                                     child: RichText(
                                       text: TextSpan(
                                         children: [

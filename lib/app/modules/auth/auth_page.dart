@@ -73,7 +73,9 @@ class _AuthPageState extends ModularState<AuthPage, AuthController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CustomOutlineButtonAuth(
-                        onPressed: () {},
+                        onPressed: () {
+                          Modular.link.pushReplacementNamed("/cadastro");
+                        },
                         text: "CADASTRAR",
                         elevation: 0.0,
                       ),
