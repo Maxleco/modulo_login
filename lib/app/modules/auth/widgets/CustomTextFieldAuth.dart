@@ -4,6 +4,7 @@ import '../../auth/utils/StylesTexts.dart';
 class CustomTextFieldAuth extends StatelessWidget {
   final double height;
   final TextEditingController controller;
+  final Function(String) onChanged;
   final String label;
   final Color color;
   final TextInputType textInputType;
@@ -16,10 +17,11 @@ class CustomTextFieldAuth extends StatelessWidget {
   final Function(String) onSaved;
   final String Function(String) validator;
 
-  const CustomTextFieldAuth({
-    @required this.controller,
+  const CustomTextFieldAuth({    
     @required this.icon,
     @required this.label,
+    this.onChanged,
+    this.controller,
     this.hint,
     this.textInputType = TextInputType.text,
     this.textInputAction,
@@ -46,12 +48,13 @@ class CustomTextFieldAuth extends StatelessWidget {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: this.height,
-          child: TextFormField(
-            controller: this.controller,
+          child: TextFormField(                        
             obscureText: this.isPass,
+            onChanged: this.onChanged,
+            controller: this.controller,
             keyboardType: this.textInputType,
             textInputAction: this.textInputAction,
-            onFieldSubmitted: this.onFieldSubmitted,
+            onFieldSubmitted: this.onFieldSubmitted,            
             cursorColor: Colors.grey,
             onSaved: this.onSaved,
             validator: this.validator,

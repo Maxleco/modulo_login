@@ -78,7 +78,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                               bool isError = controller.isError;
                               return CustomTextFieldAuth(
                                 height: isError ? 70.0 : 60.0,
-                                controller: controller.emailController,
+                                onChanged: controller.setEmail,
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (String value) {
                                   FocusScopeNode currentFocus =
@@ -105,7 +105,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                             Observer(builder: (_) {
                               return CustomTextFieldAuth(
                                 height: controller.isError ? 70.0 : 60.0,
-                                controller: controller.senhaController,                                
+                                onChanged: controller.setSenha,                                
                                 label: "Senha",
                                 hint: "Entre com sua Senha",
                                 isPass: obscureText,

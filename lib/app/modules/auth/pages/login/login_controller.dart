@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../auth_controller.dart';
@@ -7,34 +6,37 @@ part 'login_controller.g.dart';
 
 class LoginController = _LoginControllerBase with _$LoginController;
 
-abstract class _LoginControllerBase extends Disposable with Store {
+abstract class _LoginControllerBase with Store {
   final AuthController authController;
   _LoginControllerBase(this.authController) {
     this.checkLembraDeMim = false;
   }
 
   final formKey = GlobalKey<FormState>();
-  var emailController = TextEditingController();
-  var senhaController = TextEditingController();
+  String email = "";
+  String senha = "";
+
+  @action
+  setEmail(String value) => this.email = value;
+
+  @action
+  setSenha(String value) => this.senha = value;
 
   //TextField Error
   @observable
   bool isError = false; 
-
   @action
   setError(bool value) => this.isError = value;
 
   //Loading
   @observable
   bool isLoading = false;
-
   @action
   setLoading(bool value) => this.isLoading = value;
 
   //Lembra de min
   @observable
   bool checkLembraDeMim;
-
   @action
   setLembraDeMim(bool value) => checkLembraDeMim = value;
 
@@ -42,11 +44,12 @@ abstract class _LoginControllerBase extends Disposable with Store {
   @action
   void logar() {
     if (formKey.currentState.validate()) {
+      print("$email - ${senha.codeUnits.toString()}");
       this.setError(false);
       this.setLoading(true); 
       authController.entrar(
-        email: emailController.text.toLowerCase(),
-        senha: senhaController.text,
+        email: email.trim().toLowerCase(),
+        senha: senha.trim(),
       );
     }
     else{
@@ -59,11 +62,5 @@ abstract class _LoginControllerBase extends Disposable with Store {
     //     title: Text("Oppss..."),
     //   ),
     // );
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    senhaController.dispose();
   }
 }
