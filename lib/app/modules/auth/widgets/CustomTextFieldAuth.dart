@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import '../../auth/utils/StylesTexts.dart';
 
 class CustomTextFieldAuth extends StatelessWidget {
+  final double height;
   final TextEditingController controller;
   final String label;
   final Color color;
   final TextInputType textInputType;
+  final TextInputAction textInputAction;
+  final Function(String) onFieldSubmitted;
   final IconData icon;
   final String hint;
   final bool isPass;
   final Function onPressedVisiblePass;
+  final Function(String) onSaved;
+  final String Function(String) validator;
 
   const CustomTextFieldAuth({
     @required this.controller,
@@ -17,9 +22,14 @@ class CustomTextFieldAuth extends StatelessWidget {
     @required this.label,
     this.hint,
     this.textInputType = TextInputType.text,
+    this.textInputAction,
+    this.onFieldSubmitted,
     this.color = Colors.white,
     this.isPass = false,
     this.onPressedVisiblePass,
+    this.onSaved,
+    this.validator,
+    @required this.height,
   });
 
   @override
@@ -35,17 +45,22 @@ class CustomTextFieldAuth extends StatelessWidget {
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
+          height: this.height,
+          child: TextFormField(
             controller: this.controller,
             obscureText: this.isPass,
             keyboardType: this.textInputType,
+            textInputAction: this.textInputAction,
+            onFieldSubmitted: this.onFieldSubmitted,
             cursorColor: Colors.grey,
+            onSaved: this.onSaved,
+            validator: this.validator,
             style: TextStyle(
               color: this.color,
               fontFamily: "OpenSans",
             ),
             decoration: InputDecoration(
+
               border: InputBorder.none,
               contentPadding: const EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(

@@ -13,32 +13,52 @@ abstract class _LoginControllerBase extends Disposable with Store {
     this.checkLembraDeMim = false;
   }
 
+  final formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var senhaController = TextEditingController();
 
+  //TextField Error
+  @observable
+  bool isError = false; 
+
+  @action
+  setError(bool value) => this.isError = value;
+
+  //Loading
+  @observable
+  bool isLoading = false;
+
+  @action
+  setLoading(bool value) => this.isLoading = value;
+
+  //Lembra de min
   @observable
   bool checkLembraDeMim;
 
   @action
   setLembraDeMim(bool value) => checkLembraDeMim = value;
 
+  //Entrar
+  @action
   void logar() {
-    if (emailController.text != null &&
-        emailController.text != "" &&
-        senhaController.text != null &&
-        senhaController.text != "") {
+    if (formKey.currentState.validate()) {
+      this.setError(false);
+      this.setLoading(true); 
       authController.entrar(
         email: emailController.text.toLowerCase(),
         senha: senhaController.text,
       );
-    } else {
-      Modular.to.showDialog(
-        builder: (context) => AlertDialog(
-          content: Text("Voce nao preencheu todos os dados!!!"),
-          title: Text("Oppss..."),
-        ),
-      );
     }
+    else{
+      this.setLoading(false);
+      this.isError = true;
+    }
+    // Modular.to.showDialog(
+    //   builder: (context) => AlertDialog(
+    //     content: Text("Voce nao preencheu todos os dados!!!"),
+    //     title: Text("Oppss..."),
+    //   ),
+    // );
   }
 
   @override

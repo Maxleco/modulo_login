@@ -54,84 +54,143 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     horizontal: size.width * 0.075,
                     // vertical: size.height * 0.10,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Login",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "OpenSans",
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 30.0),
-                      CustomTextFieldAuth(
-                        controller: controller.emailController,
-                        label: "Email",
-                        hint: "Entre com seu Email",
-                        icon: Icons.email,
-                        textInputType: TextInputType.emailAddress,
-                      ),
-                      SizedBox(height: 30.0),
-                      CustomTextFieldAuth(
-                        controller: controller.senhaController,
-                        label: "Senha",
-                        hint: "Entre com sua Senha",
-                        isPass: obscureText,
-                        icon: Icons.lock,
-                        onPressedVisiblePass: () {
-                          setState(() {
-                            obscureText = !obscureText;
-                          });
-                        },
-                      ),
-                      CustomFlatButtonAuth(
-                        align: Alignment.topRight,
-                        text: "Esqueceu a Senha?",
-                      ),
-                      Observer(builder: (_) {
-                        return CustomCheckBoxAuth(
-                          text: "Lembre de mim",
-                          value: controller.checkLembraDeMim,
-                          onChanged: controller.setLembraDeMim,
-                        );
-                      }),
-                      CustomButtonAuth(
-                        text: "ENTRAR",
-                        onPressed: controller.logar,
-                      ),
-                      //--------------------------
-                      SizedBox(height: size.height * 0.025),
-                      GestureDetector(
-                        onTap: () {},
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Não possui uma conta?",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              TextSpan(
-                                text: "Inscrever-se",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                  child: Form(
+                    key: controller.formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Text(
+                          "Login",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "OpenSans",
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      SizedBox(height: 20),
-                    ],
+                        SizedBox(height: 30.0),
+                        //--------------------------------
+                        Column(
+                          children: <Widget>[
+                            Observer(builder: (_) {
+                              bool isError = controller.isError;
+                              return CustomTextFieldAuth(
+                                height: isError ? 70.0 : 60.0,
+                                controller: controller.emailController,
+                                textInputAction: TextInputAction.next,
+                                onFieldSubmitted: (String value) {
+                                  FocusScopeNode currentFocus =
+                                      FocusScope.of(context);
+                                  currentFocus.nextFocus();
+                                },
+                                label: "Email",
+                                hint: "Entre com seu Email",
+                                icon: Icons.email,
+                                textInputType: TextInputType.emailAddress,
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return "    [O campo é obrigatório]";
+                                  }
+                                  if (value.contains("@") == false ||
+                                      value.length < 4) {
+                                    return "    [Email Inválido]";
+                                  }
+                                  return null;
+                                },
+                              );
+                            }),
+                            SizedBox(height: 30.0),
+                            Observer(builder: (_) {
+                              return CustomTextFieldAuth(
+                                height: controller.isError ? 70.0 : 60.0,
+                                controller: controller.senhaController,                                
+                                label: "Senha",
+                                hint: "Entre com sua Senha",
+                                isPass: obscureText,
+                                icon: Icons.lock,
+                                onPressedVisiblePass: () {
+                                  setState(() {
+                                    obscureText = !obscureText;
+                                  });
+                                },
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return "    [O campo é obrigatório]";
+                                  }
+                                  if (value.length < 3 || value.length > 12) {
+                                    return "    [Senha Inválido]";
+                                  }
+                                  return null;
+                                },
+                              );
+                            }),
+                            CustomFlatButtonAuth(
+                              align: Alignment.topRight,
+                              text: "Esqueceu a Senha?",
+                            ),
+                            Observer(builder: (_) {
+                              return CustomCheckBoxAuth(
+                                text: "Lembre de mim",
+                                value: controller.checkLembraDeMim,
+                                onChanged: controller.setLembraDeMim,
+                              );
+                            }),
+                            CustomButtonAuth(
+                              text: "ENTRAR",
+                              onPressed: controller.logar,
+                            ),
+                          ],
+                        ),
+                        //----------------------------------------
+                        SizedBox(height: size.height * 0.025),
+                        Container(
+                          height: 50.0,
+                          child: Observer(builder: (_) {
+                            bool loading = controller.isLoading;
+                            return loading
+                                ? Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 2.0),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.white70),
+                                      ),
+                                    ),
+                                  )
+                                : GestureDetector(
+                                    onTap: () {},
+                                    child: RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: "Não possui uma conta?",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: "Inscrever-se",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                          }),
+                        ),
+                        //--------------------------
+                      ],
+                    ),
                   ),
                 ),
               ),

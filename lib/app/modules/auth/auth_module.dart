@@ -1,4 +1,5 @@
 import 'package:modulo_login/app/modules/auth/pages/login/login_page.dart';
+import 'package:modulo_login/app/modules/auth/submodules/cadastro/cadastro_module.dart';
 
 import 'auth_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -18,8 +19,8 @@ class AuthModule extends ChildModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter(Modular.initialRoute, child: (_, args) => AuthPage()),
-        ModularRouter("/login", child: (_, args) => LoginPage()),
-        // ModularRouter("/cadastro", child: (_, args) => ()),
+        ModularRouter("/login", child: (_, args) => LoginPage(), transition: TransitionType.fadeIn),
+        ModularRouter("/cadastro", module: CadastroModule(), transition: TransitionType.leftToRight),
       ];
 
   static Inject get to => Inject<AuthModule>.of();
