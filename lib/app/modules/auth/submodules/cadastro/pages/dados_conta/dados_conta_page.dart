@@ -21,6 +21,19 @@ class _DadosContaPageState
 
   bool obscureText = true;
   bool obscureTextConf = true;
+  FocusNode focusConfSenha;
+
+  @override
+  void initState() {
+    super.initState();
+    focusConfSenha = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    focusConfSenha.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +98,8 @@ class _DadosContaPageState
                           height: isError ? 70.0 : 50.0,
                           textInputAction: TextInputAction.next,
                           onFieldSubmitted: (String value) {
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
-                            currentFocus.nextFocus();
+                            if (focusConfSenha.canRequestFocus)
+                              focusConfSenha.requestFocus();
                           },
                           label: "Senha",
                           hint: "Entre com sua Senha",
@@ -115,6 +127,13 @@ class _DadosContaPageState
                         bool isError = controller.isError;
                         return CustomTextFieldAuth(
                           height: isError ? 70.0 : 50.0,
+                          focusNode: focusConfSenha,
+                          textInputAction: TextInputAction.done,
+                          onFieldSubmitted: (String value) {
+                            FocusScopeNode currentFocus =
+                                FocusScope.of(context);
+                            currentFocus.unfocus();
+                          },
                           label: "Confirma Senha",
                           hint: "Entre novamente com sua Senha",
                           isPass: obscureTextConf,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:modulo_login/app/modules/auth/submodules/cadastro/models/highlighter_page/highlighter_page_model.dart';
+import 'package:modulo_login/app/modules/auth/submodules/cadastro/widgets/ProgressHighlighterPage.dart';
 import 'package:modulo_login/app/modules/auth/utils/Colors.dart';
 import 'cadastro_controller.dart';
 import 'pages/cadastro_sucesso/cadastro_sucesso_page.dart';
@@ -42,6 +44,13 @@ class _CadastroPageState
     CadastroSucessoPage(),
   ];
 
+  List<HighlighterPageModel> _listNavHighlighter = [
+    HighlighterPageModel(index: 0, isNowPage: false),
+    HighlighterPageModel(index: 1, isNowPage: false),
+    HighlighterPageModel(index: 2, isNowPage: false),
+    HighlighterPageModel(index: 3, isNowPage: false),
+  ];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -52,47 +61,70 @@ class _CadastroPageState
           AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.light,
             child: Container(
-                height: size.height,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        height: size.height * 0.20,
-                        alignment: Alignment.center,
-                        child: Column(
-            children: <Widget>[
-              SizedBox(height: size.height * 0.05),
-              Container(
-                height: size.height * 0.15,
-                alignment: Alignment.center,
-                child: Text(
-                  "Cadastro",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: "OpenSans",
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+              height: size.height,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: size.height * 0.2,
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: size.height * 0.05),
+                          Container(
+                            height: size.height * 0.10,
+                            alignment: Alignment.center,
+                            child: Text(
+                              "CADASTRO",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "OpenSans",
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Observer(builder: (_) {
+                            print("Entrei no Observe");
+                            print(controller.page);
+                            return Container(
+                              height: size.height * 0.05,
+                              width: size.width,
+                              child: AnimatedBuilder(
+                                builder: (BuildContext context, Widget child) =>
+                                    child,
+                                animation: controller.pageController,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: _listNavHighlighter.map((item) {
+                                    bool isNow = false;
+                                    if (item.index <= controller.page.toInt())
+                                      isNow = true;
+                                    return ProgressHighlighterPage(isNow);
+                                  }).toList(),
+                                ),
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: size.height * 0.80,
+                      child: PageView.builder(
+                        controller: controller.pageController,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: _listPages.length,
+                        itemBuilder: (context, index) {
+                          return _listPages[index];
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-                        ),
-                      ),
-                      Container(
-                        height: size.height * 0.80,
-                        child: PageView.builder(
-            controller: controller.pageController,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: _listPages.length,
-            itemBuilder: (context, index){
-              return _listPages[index];
-            },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            ),
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import '../../auth/utils/StylesTexts.dart';
 class CustomTextFieldAuth extends StatelessWidget {
   final double height;
   final TextEditingController controller;
+  final FocusNode focusNode;
   final Function(String) onChanged;
   final String label;
   final Color color;
@@ -19,6 +20,7 @@ class CustomTextFieldAuth extends StatelessWidget {
 
   const CustomTextFieldAuth({
     this.controller,
+    this.focusNode,
     @required this.icon,
     @required this.label,
     this.onChanged,
@@ -51,6 +53,7 @@ class CustomTextFieldAuth extends StatelessWidget {
           child: TextFormField(                        
             obscureText: this.isPass,
             onChanged: this.onChanged,
+            focusNode: this.focusNode,
             controller: this.controller,
             keyboardType: this.textInputType,
             textInputAction: this.textInputAction,

@@ -63,7 +63,6 @@ abstract class _DadosContaControllerBase extends Disposable with Store {
   @action
   setSenhaConf(String value) => this.senhaConf = value;
 
-  @action
   void next(){
     if(formKey.currentState.validate()){
       setError(false);

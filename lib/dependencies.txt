@@ -7,4 +7,9 @@ image_picker
 <key>NSMicrophoneUsageDescription</key>
 <string>Necessário permissão para acessar ao microfone</string>
 
+flutter_masked_text
+
+
+
+flutter install flutter_masked_text
 

@@ -26,7 +26,6 @@ abstract class _DadosPessoaisControllerBase extends Disposable with Store {
   @action
   setLoading(bool value) => this.isLoading = value;
 
-  @action
   void next(){
     this.cadastroController.changePage(1);
   }

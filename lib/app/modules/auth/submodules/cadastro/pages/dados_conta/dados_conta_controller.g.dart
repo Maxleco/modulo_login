@@ -134,17 +134,6 @@ mixin _$DadosContaController on _DadosContaControllerBase, Store {
   }
 
   @override
-  void next() {
-    final _$actionInfo = _$_DadosContaControllerBaseActionController
-        .startAction(name: '_DadosContaControllerBase.next');
-    try {
-      return super.next();
-    } finally {
-      _$_DadosContaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 image: ${image},
