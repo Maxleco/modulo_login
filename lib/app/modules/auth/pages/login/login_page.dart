@@ -177,7 +177,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: "Inscrever-se",
+                                            text: " Inscrever-se",
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 18.0,

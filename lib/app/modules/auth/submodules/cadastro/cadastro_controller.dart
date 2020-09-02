@@ -1,17 +1,29 @@
-import 'package:mobx/mobx.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
+import 'package:mobx/mobx.dart';
 part 'cadastro_controller.g.dart';
 
-@Injectable()
 class CadastroController = _CadastroControllerBase with _$CadastroController;
 
-abstract class _CadastroControllerBase with Store {
-  @observable
-  int value = 0;
+abstract class _CadastroControllerBase extends Disposable with Store {
+  final pageController = PageController(initialPage: 0);
 
-  @action
-  void increment() {
-    value++;
+  void changePage(double value) {
+    double page = ((maxExtentPages / 4) * (value + 0.5));
+    pageController.animateTo(
+      page,
+      duration: Duration(milliseconds: 250),
+      curve: Curves.decelerate,
+    );
+  }
+
+  double get maxExtentPages => this.pageController.position.maxScrollExtent;
+
+  @computed
+  double get currentPage => this.pageController.page;
+
+  @override
+  void dispose() {
+    pageController.dispose();
   }
 }
