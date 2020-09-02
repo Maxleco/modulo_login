@@ -44,7 +44,6 @@ abstract class _LoginControllerBase with Store {
   @action
   void logar() {
     if (formKey.currentState.validate()) {
-      print("$email - ${senha.codeUnits.toString()}");
       this.setError(false);
       this.setLoading(true); 
       authController.entrar(

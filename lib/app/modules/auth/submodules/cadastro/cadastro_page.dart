@@ -52,36 +52,47 @@ class _CadastroPageState
           AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.light,
             child: Container(
-              height: size.height,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: size.height * 0.25,
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Cadastro",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "OpenSans",
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                height: size.height,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: size.height * 0.20,
+                        alignment: Alignment.center,
+                        child: Column(
+            children: <Widget>[
+              SizedBox(height: size.height * 0.05),
+              Container(
+                height: size.height * 0.15,
+                alignment: Alignment.center,
+                child: Text(
+                  "Cadastro",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "OpenSans",
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Container(
-                    height: size.height * 0.75,
-                    child: PageView.builder(
-                      controller: controller.pageController,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: _listPages.length,
-                      itemBuilder: (context, index){
-                        return _listPages[index];
-                      },
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
+                        ),
+                      ),
+                      Container(
+                        height: size.height * 0.80,
+                        child: PageView.builder(
+            controller: controller.pageController,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: _listPages.length,
+            itemBuilder: (context, index){
+              return _listPages[index];
+            },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
           ),
         ],
       ),

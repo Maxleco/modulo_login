@@ -9,11 +9,16 @@ abstract class _CadastroControllerBase extends Disposable with Store {
   final pageController = PageController(initialPage: 0);
 
   void changePage(double value) {
-    double page = ((maxExtentPages / 4) * (value + 0.5));
+    double page;
+    if (value == 3) {
+      page = maxExtentPages;
+    } else {
+      page = ((maxExtentPages / 4) * (value + 0.3));
+    }
     pageController.animateTo(
       page,
       duration: Duration(milliseconds: 250),
-      curve: Curves.decelerate,
+      curve: Curves.linear,
     );
   }
 
@@ -21,6 +26,24 @@ abstract class _CadastroControllerBase extends Disposable with Store {
 
   @computed
   double get currentPage => this.pageController.page;
+
+  // Future<File> _treatImage(File fileImage) async {
+  //   Directory tempDir = await getTemporaryDirectory();
+  //   String path = tempDir.path;
+  //   //? String title = _titleController.text;
+
+  //   String emailUser = "";
+  //   for (var letra in widget.user.email.codeUnits) {
+  //     emailUser += letra.toString();
+  //   }
+
+  //   Img.Image image = Img.decodeImage(fileImage.readAsBytesSync());
+  //   Img.Image smallerImg = Img.copyResize(image, width: 500);
+
+  //   File compressImg = new File("$path/image_$emailUser.jpg")
+  //     ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 10));
+  //   return compressImg;
+  // }
 
   @override
   void dispose() {

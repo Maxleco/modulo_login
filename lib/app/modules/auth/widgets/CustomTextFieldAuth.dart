@@ -17,16 +17,11 @@ class CustomTextFieldAuth extends StatelessWidget {
   final Function(String) onSaved;
   final String Function(String) validator;
 
-<<<<<<< HEAD
-  const CustomTextFieldAuth({    
-=======
   const CustomTextFieldAuth({
     this.controller,
->>>>>>> cadastro
     @required this.icon,
     @required this.label,
     this.onChanged,
-    this.controller,
     this.hint,
     this.textInputType = TextInputType.text,
     this.textInputAction,
@@ -70,7 +65,7 @@ class CustomTextFieldAuth extends StatelessWidget {
             decoration: InputDecoration(
 
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.only(top: 14.0),
+              contentPadding: const EdgeInsets.only(top: 15.0),
               prefixIcon: Icon(
                 this.icon,
                 color: this.color,

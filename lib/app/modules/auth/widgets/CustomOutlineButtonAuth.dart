@@ -25,7 +25,7 @@ class CustomOutlineButtonAuth extends StatelessWidget {
       ),
       child: RaisedButton(
         elevation: this.elevation,
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(7.5),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
           side: BorderSide(

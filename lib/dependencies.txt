@@ -1,0 +1,10 @@
+
+image_picker
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Necessário permissão para acessar a galeria de fotos</string>
+<key>NSCameraUsageDescription</key>
+<string>Necessário permissão para acessar a câmera</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>Necessário permissão para acessar ao microfone</string>
+
+

@@ -51,7 +51,7 @@ class _DadosEnderecoPageState
                       onPressed: controller.next,
                       text: "AVANÇAR",
                       elevation: 0.0,
-                      width: size.width * 0.32,
+                      width: size.width * 0.4,
                     ),
                   ],
                 ),

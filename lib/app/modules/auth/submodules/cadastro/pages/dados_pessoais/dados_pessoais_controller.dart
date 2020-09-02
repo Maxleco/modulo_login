@@ -13,6 +13,19 @@ abstract class _DadosPessoaisControllerBase extends Disposable with Store {
   final CadastroController cadastroController;
   _DadosPessoaisControllerBase(this.cadastroController);
 
+  //----
+  @observable
+  bool isError = false;
+
+  @action
+  setError(bool value) => this.isError = value;
+
+  @observable
+  bool isLoading = false;
+  
+  @action
+  setLoading(bool value) => this.isLoading = value;
+
   @action
   void next(){
     this.cadastroController.changePage(1);

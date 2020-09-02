@@ -40,65 +40,107 @@ class _DadosPessoaisPageState
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                // Column(
-                //   children: <Widget>[
-                //     Observer(builder: (_) {
-                //       // bool isError = controller.isError;
-                //       return CustomTextFieldAuth(
-                //         height: 60, //isError ? 70.0 : 60.0,
-                //         textInputAction: TextInputAction.next,
-                //         onFieldSubmitted: (String value) {
-                //           FocusScopeNode currentFocus = FocusScope.of(context);
-                //           currentFocus.nextFocus();
-                //         },
-                //         label: "Email",
-                //         hint: "Entre com seu Email",
-                //         icon: Icons.email,
-                //         textInputType: TextInputType.emailAddress,
-                //         validator: (String value) {
-                //           if (value.isEmpty) {
-                //             return "    [O campo é obrigatório]";
-                //           }
-                //           if (value.contains("@") == false ||
-                //               value.length < 4) {
-                //             return "    [Email Inválido]";
-                //           }
-                //           return null;
-                //         },
-                //       );
-                //     }),
-                //     SizedBox(height: 30.0),
-                //     Observer(builder: (_) {
-                //       return CustomTextFieldAuth(
-                //         height: 60, //controller.isError ? 70.0 : 60.0,
-                //         // controller: controller.senhaController,
-                //         label: "Senha",
-                //         hint: "Entre com sua Senha",
-                //         // isPass: obscureText,
-                //         icon: Icons.lock,
-                //         onPressedVisiblePass: () {
-                //           // setState(() {
-                //           //   obscureText = !obscureText;
-                //           // });
-                //         },
-                //         validator: (String value) {
-                //           if (value.isEmpty) {
-                //             return "    [O campo é obrigatório]";
-                //           }
-                //           if (value.length < 3 || value.length > 12) {
-                //             return "    [Senha Inválido]";
-                //           }
-                //           return null;
-                //         },
-                //       );
-                //     }),                    
-                //   ],
-                // ),
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Observer(builder: (_) {
+                        bool isError = controller.isError;
+                        return CustomTextFieldAuth(
+                          height: isError ? 70.0 : 50.0,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (String value) {
+                            FocusScopeNode currentFocus =
+                                FocusScope.of(context);
+                            currentFocus.nextFocus();
+                          },
+                          label: "Nome",
+                          hint: "Digite seu Nome",
+                          icon: Icons.email,
+                          textInputType: TextInputType.emailAddress,
+                          //onChanged: controller.setEmail,
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return "    [O campo é obrigatório]";
+                            }
+                            if (value.length < 3) {
+                              return "    [Campo Inválido]";
+                            }
+                            return null;
+                          },
+                        );
+                      }),
+                      SizedBox(height: size.height * 0.03),
+                      Observer(builder: (_) {
+                        bool isError = controller.isError;
+                        return CustomTextFieldAuth(
+                          height: isError ? 70.0 : 50.0,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (String value) {
+                            FocusScopeNode currentFocus =
+                                FocusScope.of(context);
+                            currentFocus.nextFocus();
+                          },
+                          label: "Sobrenome",
+                          hint: "Digite seu Sobrenome",
+                          
+                          icon: Icons.lock,
+                          // onChanged: controller.setSenha,
+                          // onPressedVisiblePass: () {
+                          //   setState(() {
+                          //     obscureText = !obscureText;
+                          //   });
+                          // },
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return "    [O campo é obrigatório]";
+                            }
+                            if (value.length < 3 || value.length > 12) {
+                              return "    [Campo Inválido]";
+                            }
+                            return null;
+                          },
+                        );
+                      }),
+                      SizedBox(height: size.height * 0.03),
+                      Observer(builder: (_) {
+                        bool isError = controller.isError;
+                        return CustomTextFieldAuth(
+                          height: isError ? 70.0 : 50.0,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (String value) {
+                            FocusScopeNode currentFocus =
+                                FocusScope.of(context);
+                            currentFocus.nextFocus();
+                          },
+                          label: "Confirma Senha",
+                          hint: "Entre novamente com sua Senha",
+                          
+                          icon: Icons.lock,
+                          // onChanged: controller.setSenhaConf,
+                          // onPressedVisiblePass: () {
+                          //   setState(() {
+                          //     obscureTextConf = !obscureTextConf;
+                          //   });
+                          // },
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return "    [O campo é obrigatório]";
+                            }
+                            if (value.length < 3 || value.length > 12) {
+                              return "    [Senha Inválido]";
+                            }
+                            return null;
+                          },
+                        );
+                      }),
+                    ],
+                  ),
                 CustomButtonAuth(
                       onPressed: controller.next,
                       text: "AVANÇAR",
                       elevation: 0.0,
-                      width: size.width * 0.32,
+                      width: size.width * 0.5,
                     ),
                     GestureDetector(
                       onTap: () {
