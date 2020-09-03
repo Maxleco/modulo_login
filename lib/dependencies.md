@@ -11,11 +11,13 @@ flutter_masked_text
 
 intl
 
-
+# AndroidManifest
+<uses-permission android:name="android.permission.INTERNET"/>
 
 slidy install flutter_masked_text
 
 
+# Pubspec
 dependencies:
   flutter:
     sdk: flutter
