@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modulo_login/app/modules/auth/widgets/CustomButtonAuth.dart';
-import 'package:modulo_login/app/modules/auth/widgets/CustomOutlineButtonAuth.dart';
 import 'package:modulo_login/app/modules/auth/widgets/CustomTextFieldAuth.dart';
+import 'package:modulo_login/app/modules/auth/widgets/CustomTextFieldIconAuth.dart';
 import 'dados_pessoais_controller.dart';
 
 class DadosPessoaisPage extends StatefulWidget {
@@ -24,47 +26,125 @@ class _DadosPessoaisPageState
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Container(
-        height: double.infinity,
-        alignment: AlignmentDirectional.center,
-        child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.075,
-            // vertical: size.height * 0.10,
-          ),
-          child: Form(
-            // key: controller.formKey,
+      child: Form(
+        key: controller.formKey,
+        child: AspectRatio(
+          aspectRatio: size.aspectRatio,
+          child: Container(
+            height: size.height * 0.8,
+            alignment: AlignmentDirectional.center,
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * 0.075,
+                // vertical: size.height * 0.10,
+              ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Column(
+                Container(
+                  height: size.height * 0.60,
+                                    child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
+                      SizedBox(height: size.height * 0.03),
+                      Observer(
+                        builder: (BuildContext context) {
+                          bool isError = controller.isError;
+                          return CustomTextFieldAuth(
+                            height: isError ? 70.0 : 50.0,
+                            controller: controller.nomeController,
+                            textCapitalization: TextCapitalization.sentences,
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (String value) {
+                              FocusScopeNode currentFocus =
+                                  FocusScope.of(context);
+                              currentFocus.nextFocus();
+                            },
+                            label: "Nome",
+                            hint: "Digite seu Nome",
+                            contentPadding: const EdgeInsets.only(left: 15.0),
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(15)
+                            ],
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return "    [Campo Obrigatório]";
+                              }
+                              if (value.length < 3) {
+                                return "    [O Nome deve conter mais de 2 caracteres]";
+                              }
+                              return null;
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(height: size.height * 0.03),
+                      Observer(
+                        builder: (BuildContext context) {
+                          bool isError = controller.isError;
+                          return CustomTextFieldAuth(
+                            height: isError ? 70.0 : 50.0,
+                            controller: controller.sobrenomeController,
+                            textCapitalization: TextCapitalization.sentences,
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (String value) {
+                              FocusScopeNode currentFocus =
+                                  FocusScope.of(context);
+                              currentFocus.nextFocus();
+                            },
+                            label: "Sobrenome",
+                            hint: "Digite seu Sobrenome",
+                            contentPadding: const EdgeInsets.only(left: 15.0),
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(15)
+                            ],
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return "    [Campo Obrigatório]";
+                              }
+                              if (value.length < 3) {
+                                return "    [O Nome deve conter mais de 2 caracteres]";
+                              }
+                              return null;
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(height: size.height * 0.03),
                       Observer(builder: (_) {
                         bool isError = controller.isError;
-                        return CustomTextFieldAuth(
+                        return CustomTextFieldIconAuth(
                           height: isError ? 70.0 : 50.0,
+                          controller: controller.dataController,
+                          textInputType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           onFieldSubmitted: (String value) {
                             FocusScopeNode currentFocus =
                                 FocusScope.of(context);
                             currentFocus.nextFocus();
                           },
-                          label: "Nome",
-                          hint: "Digite seu Nome",
-                          icon: Icons.email,
-                          textInputType: TextInputType.emailAddress,
-                          //onChanged: controller.setEmail,
+                          label: "Data de Nascimento",
+                          hint: "00/00/0000",
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 15.0),
+                          widgetIcon: Icon(
+                            FontAwesomeIcons.calendar,
+                            color: Colors.white,
+                          ),
+                          onPressedIcon: () {
+                            controller.selectData(context);
+                          },
                           validator: (String value) {
                             if (value.isEmpty) {
                               return "    [O campo é obrigatório]";
                             }
-                            if (value.length < 3) {
-                              return "    [Campo Inválido]";
+                            if (value.length < 9) {
+                              return "    [Data Incompleta]";
+                            }
+                            if (controller.isValidData(value) == false) {
+                              return "    [Data Inválida]";
                             }
                             return null;
                           },
@@ -75,60 +155,23 @@ class _DadosPessoaisPageState
                         bool isError = controller.isError;
                         return CustomTextFieldAuth(
                           height: isError ? 70.0 : 50.0,
-                          textInputAction: TextInputAction.next,
+                          controller: controller.phoneController,
+                          textInputType: TextInputType.number,
+                          textInputAction: TextInputAction.done,
                           onFieldSubmitted: (String value) {
                             FocusScopeNode currentFocus =
                                 FocusScope.of(context);
-                            currentFocus.nextFocus();
+                            currentFocus.unfocus();
                           },
-                          label: "Sobrenome",
-                          hint: "Digite seu Sobrenome",
-                          
-                          icon: Icons.lock,
-                          // onChanged: controller.setSenha,
-                          // onPressedVisiblePass: () {
-                          //   setState(() {
-                          //     obscureText = !obscureText;
-                          //   });
-                          // },
+                          label: "Telefone",
+                          hint: "(00) 90000-0000",
+                          icon: Icons.phone,
                           validator: (String value) {
                             if (value.isEmpty) {
                               return "    [O campo é obrigatório]";
                             }
-                            if (value.length < 3 || value.length > 12) {
-                              return "    [Campo Inválido]";
-                            }
-                            return null;
-                          },
-                        );
-                      }),
-                      SizedBox(height: size.height * 0.03),
-                      Observer(builder: (_) {
-                        bool isError = controller.isError;
-                        return CustomTextFieldAuth(
-                          height: isError ? 70.0 : 50.0,
-                          textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (String value) {
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
-                            currentFocus.nextFocus();
-                          },
-                          label: "Confirma Senha",
-                          hint: "Entre novamente com sua Senha",
-                          
-                          icon: Icons.lock,
-                          // onChanged: controller.setSenhaConf,
-                          // onPressedVisiblePass: () {
-                          //   setState(() {
-                          //     obscureTextConf = !obscureTextConf;
-                          //   });
-                          // },
-                          validator: (String value) {
-                            if (value.isEmpty) {
-                              return "    [O campo é obrigatório]";
-                            }
-                            if (value.length < 3 || value.length > 12) {
-                              return "    [Senha Inválido]";
+                            if (value.length < 15) {
+                              return "    [Número de telefone Incompleto]";
                             }
                             return null;
                           },
@@ -136,39 +179,51 @@ class _DadosPessoaisPageState
                       }),
                     ],
                   ),
-                CustomButtonAuth(
-                      onPressed: controller.next,
-                      text: "AVANÇAR",
-                      elevation: 0.0,
-                      width: size.width * 0.5,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Modular.to.pushReplacementNamed("/login");
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Já tem uma Conta?",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w400,
+                ),
+                Container(
+                  height: size.height * 0.2,
+                  child: Column(
+                    children: <Widget>[
+                      CustomButtonAuth(
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                          controller.next();
+                        },
+                        text: "AVANÇAR",
+                        elevation: 0.0,
+                        width: size.width * 0.5,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Modular.to.pushReplacementNamed("/login");
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Já tem uma Conta?",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: " Login",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
+                              TextSpan(
+                                text: " Login",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(height: 10),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

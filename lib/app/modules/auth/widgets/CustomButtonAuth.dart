@@ -6,12 +6,14 @@ class CustomButtonAuth extends StatelessWidget {
   final String text;
   final double elevation;
   final double width;
+  final double paddingRaised;
 
   const CustomButtonAuth({
     @required this.onPressed,
     @required this.text,
     this.elevation = 5.0,
     this.width = double.infinity,
+    this.paddingRaised = 7.5,
   });
 
   @override
@@ -21,7 +23,7 @@ class CustomButtonAuth extends StatelessWidget {
       width: this.width,
       child: RaisedButton(
         elevation: this.elevation,
-        padding: const EdgeInsets.all(7.5),
+        padding: EdgeInsets.all(this.paddingRaised),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),

@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  intl: ^0.16.1
+  flutter_masked_text: ^0.8.0
   image_picker: ^0.6.7+7
   google_fonts: ^1.1.0
   font_awesome_flutter: ^8.8.1
@@ -29,6 +31,8 @@ dependencies:
   mobx: ^1.2.1+2
   flutter_modular: ^2.0.0+1
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
 
 

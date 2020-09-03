@@ -6,6 +6,7 @@ class CustomOutlineButtonAuth extends StatelessWidget {
   final double elevation;
   final Color corBorder;
   final double width;
+  final double paddingRaised;
 
   const CustomOutlineButtonAuth({
     @required this.onPressed,
@@ -13,6 +14,7 @@ class CustomOutlineButtonAuth extends StatelessWidget {
     this.elevation = 5.0,
     this.corBorder = Colors.white,
     this.width = double.infinity,
+    this.paddingRaised = 7.5,
   });
 
   @override
@@ -25,7 +27,7 @@ class CustomOutlineButtonAuth extends StatelessWidget {
       ),
       child: RaisedButton(
         elevation: this.elevation,
-        padding: const EdgeInsets.all(7.5),
+        padding: EdgeInsets.all(this.paddingRaised),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
           side: BorderSide(

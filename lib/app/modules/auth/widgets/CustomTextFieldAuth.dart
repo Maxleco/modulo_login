@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../auth/utils/StylesTexts.dart';
 
 class CustomTextFieldAuth extends StatelessWidget {
@@ -9,6 +10,8 @@ class CustomTextFieldAuth extends StatelessWidget {
   final String label;
   final Color color;
   final TextInputType textInputType;
+  final TextCapitalization textCapitalization;
+  final List<TextInputFormatter> inputFormatters;
   final TextInputAction textInputAction;
   final Function(String) onFieldSubmitted;
   final IconData icon;
@@ -17,15 +20,20 @@ class CustomTextFieldAuth extends StatelessWidget {
   final Function onPressedVisiblePass;
   final Function(String) onSaved;
   final String Function(String) validator;
+  final EdgeInsetsGeometry contentPadding;
+  final Widget sufixIcon;
 
   const CustomTextFieldAuth({
     this.controller,
     this.focusNode,
-    @required this.icon,
+    this.icon,
+    this.sufixIcon,
     @required this.label,
     this.onChanged,
     this.hint,
     this.textInputType = TextInputType.text,
+    this.textCapitalization = TextCapitalization.none,
+    this.inputFormatters,
     this.textInputAction,
     this.onFieldSubmitted,
     this.color = Colors.white,
@@ -33,6 +41,7 @@ class CustomTextFieldAuth extends StatelessWidget {
     this.onPressedVisiblePass,
     this.onSaved,
     this.validator,
+    this.contentPadding = const EdgeInsets.only(top: 15.0),
     @required this.height,
   });
 
@@ -50,14 +59,16 @@ class CustomTextFieldAuth extends StatelessWidget {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: this.height,
-          child: TextFormField(                        
+          child: TextFormField(
             obscureText: this.isPass,
             onChanged: this.onChanged,
             focusNode: this.focusNode,
             controller: this.controller,
+            inputFormatters: this.inputFormatters,
             keyboardType: this.textInputType,
+            textCapitalization: this.textCapitalization,            
             textInputAction: this.textInputAction,
-            onFieldSubmitted: this.onFieldSubmitted,            
+            onFieldSubmitted: this.onFieldSubmitted,
             cursorColor: Colors.grey,
             onSaved: this.onSaved,
             validator: this.validator,
@@ -66,15 +77,17 @@ class CustomTextFieldAuth extends StatelessWidget {
               fontFamily: "OpenSans",
             ),
             decoration: InputDecoration(
-
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.only(top: 15.0),
-              prefixIcon: Icon(
-                this.icon,
-                color: this.color,
-              ),
+              contentPadding: this.contentPadding,
+              prefixIcon: this.icon != null
+                  ? Icon(
+                      this.icon,
+                      color: this.color,
+                    )
+                  : null,
               hintText: this.hint,
               hintStyle: kHintTextStyle,
+              suffix: this.sufixIcon,
               suffixIcon: this.onPressedVisiblePass != null
                   ? IconButton(
                       onPressed: this.onPressedVisiblePass,

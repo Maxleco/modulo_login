@@ -1,4 +1,4 @@
-
+# Dependencies
 image_picker
 <key>NSPhotoLibraryUsageDescription</key>
 <string>Necessário permissão para acessar a galeria de fotos</string>
@@ -9,7 +9,23 @@ image_picker
 
 flutter_masked_text
 
+intl
 
 
-flutter install flutter_masked_text
+
+slidy install flutter_masked_text
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+localizationsDelegates: [
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate
+],
+supportedLocales: [const Locale('pt', 'BR')],
+
 

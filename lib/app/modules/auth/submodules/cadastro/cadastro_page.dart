@@ -55,12 +55,13 @@ class _CadastroPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          _background,
-          AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle.light,
-            child: Container(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+      
+              child: Stack(
+          children: <Widget>[
+            _background,
+            Container(
               height: size.height,
               child: SingleChildScrollView(
                 child: Column(
@@ -85,8 +86,6 @@ class _CadastroPageState
                             ),
                           ),
                           Observer(builder: (_) {
-                            print("Entrei no Observe");
-                            print(controller.page);
                             return Container(
                               height: size.height * 0.05,
                               width: size.width,
@@ -125,8 +124,8 @@ class _CadastroPageState
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

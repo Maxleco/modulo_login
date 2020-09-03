@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modulo_login/app/modules/auth/utils/Colors.dart';
@@ -76,6 +77,9 @@ class _DadosContaPageState
                           },
                           label: "Email",
                           hint: "Entre com seu Email",
+                          inputFormatters: [
+                              LengthLimitingTextInputFormatter(60)
+                            ],
                           icon: Icons.email,
                           textInputType: TextInputType.emailAddress,
                           onChanged: controller.setEmail,
@@ -103,6 +107,9 @@ class _DadosContaPageState
                           },
                           label: "Senha",
                           hint: "Entre com sua Senha",
+                          inputFormatters: [
+                              LengthLimitingTextInputFormatter(12)
+                            ],
                           isPass: obscureText,
                           icon: Icons.lock,
                           onChanged: controller.setSenha,
@@ -136,6 +143,9 @@ class _DadosContaPageState
                           },
                           label: "Confirma Senha",
                           hint: "Entre novamente com sua Senha",
+                          inputFormatters: [
+                              LengthLimitingTextInputFormatter(12)
+                            ],
                           isPass: obscureTextConf,
                           icon: Icons.lock,
                           onChanged: controller.setSenhaConf,
@@ -170,13 +180,19 @@ class _DadosContaPageState
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       CustomOutlineButtonAuth(
-                        onPressed: controller.back,
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                          controller.back();
+                        },
                         text: "VOLTAR",
                         elevation: 0.0,
                         width: size.width * 0.3,
                       ),
                       CustomButtonAuth(
-                        onPressed: controller.next,
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                          controller.next();
+                        },
                         text: "CONCLUIR",
                         elevation: 0.0,
                         width: size.width * 0.4,

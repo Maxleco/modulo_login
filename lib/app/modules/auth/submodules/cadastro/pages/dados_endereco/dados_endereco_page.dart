@@ -26,7 +26,6 @@ class _DadosEnderecoPageState
         height: double.infinity,
         alignment: AlignmentDirectional.center,
         child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
           padding: EdgeInsets.symmetric(
             horizontal: size.width * 0.075,
             // vertical: size.height * 0.10,
@@ -42,13 +41,19 @@ class _DadosEnderecoPageState
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     CustomOutlineButtonAuth(
-                      onPressed: controller.back,
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        controller.back();
+                      },
                       text: "VOLTAR",
                       elevation: 0.0,
                       width: size.width * 0.3,
                     ),
                     CustomButtonAuth(
-                      onPressed: controller.next,
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        controller.next();
+                      },
                       text: "AVANÇAR",
                       elevation: 0.0,
                       width: size.width * 0.4,
