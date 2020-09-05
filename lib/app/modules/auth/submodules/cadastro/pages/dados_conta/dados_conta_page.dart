@@ -22,19 +22,6 @@ class _DadosContaPageState
 
   bool obscureText = true;
   bool obscureTextConf = true;
-  FocusNode focusConfSenha;
-
-  @override
-  void initState() {
-    super.initState();
-    focusConfSenha = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    focusConfSenha.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +35,12 @@ class _DadosContaPageState
           child: Container(
             height: size.height * 0.8,
             alignment: AlignmentDirectional.center,
-            child: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
                 horizontal: size.width * 0.075,
                 // vertical: size.height * 0.10,
               ),
+            child: SingleChildScrollView(
+              
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -71,9 +58,7 @@ class _DadosContaPageState
                           height: isError ? 70.0 : 50.0,
                           textInputAction: TextInputAction.next,
                           onFieldSubmitted: (String value) {
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
-                            currentFocus.nextFocus();
+                            controller.focusSenha.requestFocus();
                           },
                           label: "Email",
                           hint: "Entre com seu Email",
@@ -100,10 +85,10 @@ class _DadosContaPageState
                         bool isError = controller.isError;
                         return CustomTextFieldAuth(
                           height: isError ? 70.0 : 50.0,
+                          focusNode: controller.focusSenha,
                           textInputAction: TextInputAction.next,
                           onFieldSubmitted: (String value) {
-                            if (focusConfSenha.canRequestFocus)
-                              focusConfSenha.requestFocus();
+                            controller.focusConfSenha.requestFocus();
                           },
                           label: "Senha",
                           hint: "Entre com sua Senha",
@@ -134,12 +119,10 @@ class _DadosContaPageState
                         bool isError = controller.isError;
                         return CustomTextFieldAuth(
                           height: isError ? 70.0 : 50.0,
-                          focusNode: focusConfSenha,
+                          focusNode: controller.focusConfSenha,
                           textInputAction: TextInputAction.done,
                           onFieldSubmitted: (String value) {
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
-                            currentFocus.unfocus();
+                            FocusScope.of(context).unfocus();
                           },
                           label: "Confirma Senha",
                           hint: "Entre novamente com sua Senha",

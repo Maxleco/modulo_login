@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:modulo_login/app/modules/auth/submodules/cadastro/models/dados_endereco/dados_endereco_model.dart';
 part 'cadastro_controller.g.dart';
 
 class CadastroController = _CadastroControllerBase with _$CadastroController;
@@ -8,6 +9,19 @@ class CadastroController = _CadastroControllerBase with _$CadastroController;
 abstract class _CadastroControllerBase extends Disposable with Store {
   _CadastroControllerBase();
 
+  DadosEnderecoModel dadosEndereco = DadosEnderecoModel();
+  void setDadosEndereco(DadosEnderecoModel dadosEnd){
+    this.dadosEndereco = dadosEnd;
+  }
+  void disposeDadosEndereco(){
+    this.dadosEndereco = DadosEnderecoModel();
+  }
+
+  void cadastrar(){
+
+  }
+
+  //* Gerencimaento das Paginas
   PageController pageController = PageController(initialPage: 0);
 
   @observable

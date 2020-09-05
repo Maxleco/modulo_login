@@ -20,11 +20,18 @@ abstract class _DadosPessoaisControllerBase extends Disposable with Store {
   MaskedTextController dataController;
   MaskedTextController phoneController;
 
+  FocusNode focusSobrenome;
+  FocusNode focusData;
+  FocusNode focusTelefone;
+
   _DadosPessoaisControllerBase(this.cadastroController){
     nomeController = TextEditingController(text: "");
     sobrenomeController = TextEditingController(text: "");
     dataController = MaskedTextController(mask: "00/00/0000", text: "");
     phoneController = MaskedTextController(mask: "(00) 90000-0000", text: "");
+    focusSobrenome = FocusNode();
+    focusData = FocusNode();
+    focusTelefone = FocusNode();
   }
 
   final formKey = GlobalKey<FormState>();
@@ -76,7 +83,7 @@ abstract class _DadosPessoaisControllerBase extends Disposable with Store {
     }
   }
 
-  //----
+  //----------------------
   @observable
   bool isError = false;
 
@@ -104,6 +111,8 @@ abstract class _DadosPessoaisControllerBase extends Disposable with Store {
     sobrenomeController.dispose();
     dataController.dispose();
     phoneController.dispose();
-    // cadastroController.dispose();
+    focusSobrenome.dispose();
+    focusData.dispose();
+    focusTelefone.dispose();
   }
 }

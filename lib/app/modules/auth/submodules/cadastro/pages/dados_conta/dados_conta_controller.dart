@@ -16,7 +16,13 @@ class DadosContaController = _DadosContaControllerBase
 abstract class _DadosContaControllerBase extends Disposable with Store {
   final _picker = ImagePicker();
   final CadastroController cadastroController;
-  _DadosContaControllerBase(this.cadastroController);
+  _DadosContaControllerBase(this.cadastroController){
+    focusSenha = FocusNode();
+    focusConfSenha = FocusNode();
+  }
+
+  FocusNode focusSenha;
+  FocusNode focusConfSenha;
 
   @observable
   File image;
@@ -64,6 +70,35 @@ abstract class _DadosContaControllerBase extends Disposable with Store {
   setSenhaConf(String value) => this.senhaConf = value;
 
   void next(){
+    // Start Loading
+    // Modular.to.showDialog(builder: (_) {
+    //   return AlertDialog(
+    //     shape: RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.circular(15.0),
+    //     ),
+    //     content: Container(
+    //       child: Column(
+    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //         mainAxisSize: MainAxisSize.min,
+    //         children: <Widget>[
+    //           CircularProgressIndicator(
+    //             valueColor: AlwaysStoppedAnimation<Color>(MAIN_COLOR),
+    //           ),
+    //           SizedBox(height: 15.0),
+    //           Text(
+    //             "Carregando ...",
+    //             style: TextStyle(
+    //               color: MAIN_COLOR,
+    //               fontFamily: "OpenSans",
+    //               fontSize: 24,
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // });
+    // Modular.to.pop();
     if(formKey.currentState.validate()){
       setError(false);
       this.cadastroController.changePage(3);
@@ -79,6 +114,7 @@ abstract class _DadosContaControllerBase extends Disposable with Store {
 
   @override
   void dispose() {
-    // cadastroController.dispose();
+    focusSenha.dispose();
+    focusConfSenha.dispose();
   }
 }

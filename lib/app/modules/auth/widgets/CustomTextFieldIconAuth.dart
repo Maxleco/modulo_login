@@ -66,6 +66,7 @@ class CustomTextFieldIconAuth extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Expanded(
+                flex: 5,
                 child: TextFormField(
                   obscureText: this.isPass,
                   onChanged: this.onChanged,
@@ -108,9 +109,12 @@ class CustomTextFieldIconAuth extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(
-                icon: this.widgetIcon,
-                onPressed: this.onPressedIcon,
+              Expanded(
+                flex: 1,
+                child: IconButton(
+                  icon: this.widgetIcon,
+                  onPressed: this.onPressedIcon,
+                ),
               ),
             ],
           ),

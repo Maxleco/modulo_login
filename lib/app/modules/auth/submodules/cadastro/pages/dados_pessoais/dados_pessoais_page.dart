@@ -34,17 +34,16 @@ class _DadosPessoaisPageState
             height: size.height * 0.8,
             alignment: AlignmentDirectional.center,
             padding: EdgeInsets.symmetric(
-                horizontal: size.width * 0.075,
-                // vertical: size.height * 0.10,
-              ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Container(
-                  height: size.height * 0.60,
-                                    child: Column(
+              horizontal: size.width * 0.075,
+              // vertical: size.height * 0.10,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -55,12 +54,10 @@ class _DadosPessoaisPageState
                           return CustomTextFieldAuth(
                             height: isError ? 70.0 : 50.0,
                             controller: controller.nomeController,
-                            textCapitalization: TextCapitalization.sentences,
+                            textCapitalization: TextCapitalization.words,
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (String value) {
-                              FocusScopeNode currentFocus =
-                                  FocusScope.of(context);
-                              currentFocus.nextFocus();
+                              controller.focusSobrenome.requestFocus();
                             },
                             label: "Nome",
                             hint: "Digite seu Nome",
@@ -87,12 +84,11 @@ class _DadosPessoaisPageState
                           return CustomTextFieldAuth(
                             height: isError ? 70.0 : 50.0,
                             controller: controller.sobrenomeController,
-                            textCapitalization: TextCapitalization.sentences,
+                            focusNode: controller.focusSobrenome,
+                            textCapitalization: TextCapitalization.words,
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (String value) {
-                              FocusScopeNode currentFocus =
-                                  FocusScope.of(context);
-                              currentFocus.nextFocus();
+                              controller.focusData.requestFocus();
                             },
                             label: "Sobrenome",
                             hint: "Digite seu Sobrenome",
@@ -118,12 +114,11 @@ class _DadosPessoaisPageState
                         return CustomTextFieldIconAuth(
                           height: isError ? 70.0 : 50.0,
                           controller: controller.dataController,
+                          focusNode: controller.focusData,
                           textInputType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           onFieldSubmitted: (String value) {
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
-                            currentFocus.nextFocus();
+                            controller.focusTelefone.requestFocus();
                           },
                           label: "Data de Nascimento",
                           hint: "00/00/0000",
@@ -138,7 +133,7 @@ class _DadosPessoaisPageState
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return "    [O campo é obrigatório]";
+                              return "    [Campo Obrigatório]";
                             }
                             if (value.length < 9) {
                               return "    [Data Incompleta]";
@@ -156,12 +151,11 @@ class _DadosPessoaisPageState
                         return CustomTextFieldAuth(
                           height: isError ? 70.0 : 50.0,
                           controller: controller.phoneController,
+                          focusNode: controller.focusTelefone,
                           textInputType: TextInputType.number,
                           textInputAction: TextInputAction.done,
                           onFieldSubmitted: (String value) {
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
-                            currentFocus.unfocus();
+                            FocusScope.of(context).unfocus();
                           },
                           label: "Telefone",
                           hint: "(00) 90000-0000",
@@ -179,52 +173,52 @@ class _DadosPessoaisPageState
                       }),
                     ],
                   ),
-                ),
-                Container(
-                  height: size.height * 0.2,
-                  child: Column(
-                    children: <Widget>[
-                      CustomButtonAuth(
-                        onPressed: () {
-                          FocusScope.of(context).unfocus();
-                          controller.next();
-                        },
-                        text: "AVANÇAR",
-                        elevation: 0.0,
-                        width: size.width * 0.5,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Modular.to.pushReplacementNamed("/login");
-                        },
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Já tem uma Conta?",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w400,
+                  Container(
+                    height: size.height * 0.2,
+                    child: Column(
+                      children: <Widget>[
+                        CustomButtonAuth(
+                          onPressed: () {
+                            FocusScope.of(context).unfocus();
+                            controller.next();
+                          },
+                          text: "AVANÇAR",
+                          elevation: 0.0,
+                          width: size.width * 0.5,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Modular.to.pushReplacementNamed("/login");
+                          },
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "Já tem uma Conta?",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: " Login",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
+                                TextSpan(
+                                  text: " Login",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 10),
-                    ],
+                        SizedBox(height: 10),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
