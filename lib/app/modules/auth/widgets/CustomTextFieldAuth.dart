@@ -17,16 +17,11 @@ class CustomTextFieldAuth extends StatelessWidget {
   final Function(String) onSaved;
   final String Function(String) validator;
 
-<<<<<<< HEAD
-  const CustomTextFieldAuth({    
-=======
   const CustomTextFieldAuth({
     this.controller,
->>>>>>> cadastro
     @required this.icon,
     @required this.label,
     this.onChanged,
-    this.controller,
     this.hint,
     this.textInputType = TextInputType.text,
     this.textInputAction,
