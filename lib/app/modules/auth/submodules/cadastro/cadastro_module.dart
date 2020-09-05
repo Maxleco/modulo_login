@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 import 'pages/dados_conta/dados_conta_controller.dart';
 import 'pages/dados_endereco/dados_endereco_controller.dart';
 import 'pages/dados_pessoais/dados_pessoais_controller.dart';
@@ -14,6 +16,7 @@ class CadastroModule extends ChildModule {
         Bind((i) => DadosPessoaisController(i.get<CadastroController>())),
         // $CadastroController,
         Bind((i) => CadastroController()),
+        Bind((i) => Dio()),
       ];
 
   @override

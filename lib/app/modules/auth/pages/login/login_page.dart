@@ -77,7 +77,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                             Observer(builder: (_) {
                               bool isError = controller.isError;
                               return CustomTextFieldAuth(
-                                height: isError ? 70.0 : 60.0,
+                                height: isError ? 70.0 : 50.0,
                                 onChanged: controller.setEmail,
                                 textInputAction: TextInputAction.next,
                                 onFieldSubmitted: (String value) {
@@ -104,7 +104,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                             SizedBox(height: 30.0),
                             Observer(builder: (_) {
                               return CustomTextFieldAuth(
-                                height: controller.isError ? 70.0 : 60.0,
+                                height: controller.isError ? 70.0 : 50.0,
                                 onChanged: controller.setSenha,                                
                                 label: "Senha",
                                 hint: "Entre com sua Senha",
@@ -163,7 +163,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                   )
                                 : GestureDetector(
                                     onTap: () {
-                                      Modular.link.pushReplacementNamed("/cadastro");
+                                      Modular.to.pushReplacementNamed("/cadastro");
                                     },
                                     child: RichText(
                                       text: TextSpan(

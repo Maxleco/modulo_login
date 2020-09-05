@@ -77,6 +77,7 @@ class _AuthPageState extends ModularState<AuthPage, AuthController> {
                           Modular.link.pushReplacementNamed("/cadastro");
                         },
                         text: "CADASTRAR",
+                        paddingRaised: 15.0,
                         elevation: 0.0,
                       ),
                       CustomButtonAuth(
@@ -84,6 +85,7 @@ class _AuthPageState extends ModularState<AuthPage, AuthController> {
                           Modular.link.pushReplacementNamed("/login");
                         },
                         text: "LOGIN",
+                        paddingRaised: 15.0,
                         elevation: 0.0,
                       ),
                     ],
@@ -97,7 +99,7 @@ class _AuthPageState extends ModularState<AuthPage, AuthController> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 20.0),
+                      SizedBox(height: 15.0),
                       Text(
                         "Entrar com",
                         style: kLabelStyle,
